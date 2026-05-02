@@ -46,7 +46,7 @@ function About() {
             <div className="about-details">
               <h3>My Journey</h3>
               <p>
-                Currently in my 6th semester at PUCIT with a CGPA of 3.10/4.00, I have practical 
+                I have practical 
                 experience building database-driven web applications and RESTful APIs. My interests 
                 extend beyond web development to include Artificial Intelligence and Machine Learning, 
                 which I'm actively exploring alongside my core backend development skills.
