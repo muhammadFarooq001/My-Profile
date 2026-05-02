@@ -1,6 +1,6 @@
 import React from 'react';
 import './Skills.css';
-import { FaCode, FaDatabase, FaTools, FaUsers } from 'react-icons/fa';
+import { FaCode, FaDatabase, FaTools } from 'react-icons/fa';
 
 function Skills() {
   const skillsData = [

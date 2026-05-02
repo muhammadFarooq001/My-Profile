@@ -35,7 +35,7 @@ function Projects() {
     {
       id: 3,
       title: 'Todo Management REST API',
-      githubLink: 'https://github.com/muhammadFarooq001/Todos-Backend',
+      githubLink: 'https://github.com/muhammadFarooq001/React-Todos-App',
       description: 'A full-stack application featuring a robust backend API with user authentication and a responsive React frontend for task management.',
       technologies: ['ASP.NET Core Web API', 'C#', 'React', 'SQL Server', 'JWT Authentication'],
       features: [
