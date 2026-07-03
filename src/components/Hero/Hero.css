@@ -1,9 +1,12 @@
 .hero {
-  padding: 120px 0;
+  padding: 120px 0 96px;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.16), transparent 25%),
+    radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.16), transparent 22%),
+    linear-gradient(135deg, rgba(8, 17, 31, 0.96), rgba(7, 12, 24, 1));
   position: relative;
   overflow: hidden;
 }
@@ -11,11 +14,11 @@
 .hero::before {
   content: '';
   position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+  top: -40%;
+  right: -8%;
+  width: 540px;
+  height: 540px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.14) 0%, transparent 68%);
   border-radius: 50%;
   animation: float 6s ease-in-out infinite;
 }
@@ -23,11 +26,11 @@
 .hero::after {
   content: '';
   position: absolute;
-  bottom: -30%;
-  left: -5%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  bottom: -25%;
+  left: -8%;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%);
   border-radius: 50%;
   animation: float 8s ease-in-out infinite reverse;
 }
@@ -38,16 +41,40 @@
 }
 
 .hero-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  display: flex;
+  justify-content: center;
   align-items: center;
   position: relative;
   z-index: 1;
 }
 
+.hero-text {
+  max-width: 780px;
+  text-align: left;
+  padding: 2.4rem;
+  border-radius: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.46));
+  box-shadow: 0 28px 80px rgba(2, 8, 23, 0.3);
+  backdrop-filter: blur(16px);
+  position: relative;
+}
+
+.hero-text::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.36), rgba(139, 92, 246, 0.18), transparent 70%);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
 .hero-text h1 {
-  font-size: 3.5rem;
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
   line-height: 1.2;
   margin-bottom: 1rem;
   animation: slideInLeft 0.8s ease forwards;
@@ -73,20 +100,22 @@
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
-  color: #3b82f6;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: #7dd3fc;
   margin-bottom: 1rem;
   animation: slideInLeft 0.8s ease 0.2s forwards;
   opacity: 0;
+  font-weight: 600;
 }
 
 .hero-description {
-  font-size: 1.1rem;
-  color: #b0b0b0;
+  font-size: 1.05rem;
+  color: #c1cde4;
   line-height: 1.8;
   margin-bottom: 2rem;
   animation: slideInLeft 0.8s ease 0.4s forwards;
   opacity: 0;
+  max-width: 62ch;
 }
 
 .hero-buttons {
@@ -99,7 +128,7 @@
 
 .btn {
   padding: 12px 28px;
-  border-radius: 5px;
+  border-radius: 999px;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -110,24 +139,24 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: linear-gradient(135deg, #38bdf8, #3b82f6 45%, #8b5cf6);
   color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 14px 30px rgba(59, 130, 246, 0.28);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+  box-shadow: 0 18px 34px rgba(59, 130, 246, 0.42);
 }
 
 .btn-secondary {
-  border: 2px solid #3b82f6;
-  color: #3b82f6;
-  background: transparent;
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  color: #d6e8ff;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .btn-secondary:hover {
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(56, 189, 248, 0.12);
   transform: translateY(-2px);
 }
 
@@ -142,93 +171,35 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background: rgba(59, 130, 246, 0.1);
-  border: 2px solid rgba(59, 130, 246, 0.3);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.16);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #3b82f6;
+  color: #8ad8ff;
   transition: all 0.3s ease;
   font-size: 1.3rem;
 }
 
 .social-icon:hover {
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  border-color: #3b82f6;
+  border-color: transparent;
   color: white;
   transform: translateY(-3px);
 }
 
-.hero-image {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: slideInRight 0.8s ease 0.4s forwards;
-  opacity: 0;
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.blob {
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
-  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  animation: blobAnimation 8s infinite;
-  position: absolute;
-}
-
-@keyframes blobAnimation {
-  0%, 100% {
-    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  }
-  25% {
-    border-radius: 20% 60% 70% 50% / 50% 60% 30% 60%;
-  }
-  50% {
-    border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%;
-  }
-  75% {
-    border-radius: 60% 30% 60% 70% / 60% 30% 70% 60%;
-  }
-}
-
-.blob-text {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #3b82f6;
-}
-
-.blob-text p {
-  margin: 0;
-}
-
 @media (max-width: 768px) {
   .hero {
-    padding: 60px 0;
+    padding: 84px 0 72px;
     min-height: auto;
   }
 
   .hero-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    display: block;
   }
 
   .hero-text h1 {
-    font-size: 2rem;
+    font-size: 2.35rem;
   }
 
   .hero-subtitle {
@@ -250,11 +221,6 @@
 
   .hero-image {
     margin-top: 2rem;
-  }
-
-  .blob {
-    width: 200px;
-    height: 200px;
   }
 }
 
