@@ -2,6 +2,23 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
+:root {
+  --bg-0: #020202;
+  --bg-1: #050505;
+  --bg-2: #0a0a0a;
+  --surface: rgba(12, 12, 12, 0.82);
+  --surface-strong: rgba(18, 18, 18, 0.94);
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #f5f2ed;
+  --muted: #c7bfb4;
+  --orange: #f97316;
+  --violet: #a855f7;
+  --rose: #f43f5e;
+  --gold: #facc15;
+  --lime: #84cc16;
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.42);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,14 +28,16 @@
 body {
   font-family: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 32%),
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 28%),
-    linear-gradient(180deg, #08111f 0%, #0b1220 45%, #050816 100%);
-  color: #e6eefc;
+    radial-gradient(circle at 15% 10%, rgba(249, 115, 22, 0.16), transparent 24%),
+    radial-gradient(circle at 85% 0%, rgba(244, 63, 94, 0.14), transparent 22%),
+    radial-gradient(circle at 80% 78%, rgba(250, 204, 21, 0.12), transparent 20%),
+    linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
+  color: var(--text);
   line-height: 1.7;
   min-height: 100vh;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 html {
@@ -32,7 +51,19 @@ body::before {
   pointer-events: none;
   background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   background-size: 24px 24px;
-  opacity: 0.35;
+  opacity: 0.18;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgba(249, 115, 22, 0.08), transparent 35%),
+    linear-gradient(220deg, transparent 40%, rgba(244, 63, 94, 0.06) 70%, transparent 85%);
+  animation: ambientShift 14s ease-in-out infinite alternate;
+  opacity: 0.7;
 }
 
 a {
@@ -45,19 +76,68 @@ textarea {
   font: inherit;
 }
 
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 0.95rem 1.45rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.btn-primary {
+  color: #05060a;
+  background: linear-gradient(135deg, var(--gold), var(--orange) 55%, var(--rose));
+  box-shadow: 0 12px 30px rgba(249, 115, 22, 0.24);
+}
+
+.btn-secondary {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.01);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 16px 34px rgba(255, 88, 199, 0.24);
+}
+
+.btn-secondary:hover {
+  border-color: rgba(249, 115, 22, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #050816;
+  background: #040407;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #38bdf8, #3b82f6);
+  background: linear-gradient(180deg, var(--gold), var(--orange), var(--rose));
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #60a5fa, #2563eb);
+  background: linear-gradient(180deg, var(--rose), var(--orange), var(--gold));
+}
+
+@keyframes ambientShift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(0, -10px, 0) scale(1.03);
+  }
 }

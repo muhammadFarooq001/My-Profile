@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Contact.css';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaGithub } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 function Contact() {
+  const formRef = useRef(null);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,27 +13,46 @@ function Contact() {
     message: ''
   });
 
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState({ type: '', text: '' });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Create mailto link
-    const mailtoLink = `mailto:alifarroq745@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
-    window.location.href = mailtoLink;
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
+    setIsSending(true);
+    setStatus({ type: '', text: '' });
+
+    try {
+      // Replace these 3 values from your EmailJS dashboard
+      const SERVICE_ID = 'service_v8t8loh';
+      const TEMPLATE_ID = 'template_y2egcvb';
+      const PUBLIC_KEY = 'Y2hOpQnuzc6vnNAPu';
+
+      await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY);
+
+      setStatus({ type: 'success', text: ' Message sent successfully!' });
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setStatus({
+        type: 'error',
+        text: ' Failed to send message. Please try again or email me directly.'
+      });
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -44,15 +66,13 @@ function Contact() {
           <div className="contact-info">
             <h3>Let's Connect</h3>
             <p>
-              I'm always interested in hearing about new opportunities and projects. 
+              I'm always interested in hearing about new opportunities and projects.
               Whether you have a question or just want to say hello, feel free to reach out!
             </p>
 
             <div className="info-items">
               <div className="info-item">
-                <div className="info-icon">
-                  <FaEnvelope />
-                </div>
+                <div className="info-icon"><FaEnvelope /></div>
                 <div className="info-text">
                   <h4>Email</h4>
                   <a href="mailto:alifarroq745@gmail.com">alifarroq745@gmail.com</a>
@@ -60,9 +80,7 @@ function Contact() {
               </div>
 
               <div className="info-item">
-                <div className="info-icon">
-                  <FaPhone />
-                </div>
+                <div className="info-icon"><FaPhone /></div>
                 <div className="info-text">
                   <h4>Phone</h4>
                   <p>+92 310 4139825</p>
@@ -70,9 +88,7 @@ function Contact() {
               </div>
 
               <div className="info-item">
-                <div className="info-icon">
-                  <FaMapMarkerAlt />
-                </div>
+                <div className="info-icon"><FaMapMarkerAlt /></div>
                 <div className="info-text">
                   <h4>Location</h4>
                   <p>Lahore, Pakistan</p>
@@ -80,9 +96,7 @@ function Contact() {
               </div>
 
               <div className="info-item">
-                <div className="info-icon">
-                  <FaGithub />
-                </div>
+                <div className="info-icon"><FaGithub /></div>
                 <div className="info-text">
                   <h4>GitHub</h4>
                   <a href="https://github.com/muhammadFarooq001" target="_blank" rel="noopener noreferrer">
@@ -91,11 +105,9 @@ function Contact() {
                 </div>
               </div>
             </div>
-
-            
           </div>
 
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Your Name *</label>
               <input
@@ -145,10 +157,24 @@ function Contact() {
                 required
                 placeholder="Your message..."
                 rows="6"
-              ></textarea>
+              />
             </div>
 
-            <button type="submit" className="btn btn-primary">Send Message</button>
+            <button type="submit" className="btn btn-primary" disabled={isSending}>
+              {isSending ? 'Sending...' : 'Send Message'}
+            </button>
+
+            {status.text && (
+              <p
+                style={{
+                  marginTop: '10px',
+                  color: status.type === 'success' ? '#16a34a' : '#dc2626',
+                  fontWeight: 500
+                }}
+              >
+                {status.text}
+              </p>
+            )}
           </form>
         </div>
       </div>
